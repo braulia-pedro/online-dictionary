@@ -1,6 +1,4 @@
-"use client";
-import React from "react";
-import {FaBookOpen, FaLightbulb, FaCalendarDay} from "react-icons/fa";
+import { FaBookOpen, FaLightbulb, FaCalendarDay } from "react-icons/fa";
 
 export default function Curiosity() {
   const sections = [
