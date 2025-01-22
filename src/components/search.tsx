@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import Favorites from "@/app/components/favorites";
-
+import Favorites from "@/components/favorites";
+import { getWordFromApi } from "@/lib/api-transformer";
 export default function Search() {
   const [word, setWord] = useState("");
   const [result, setResult] = useState<any>(null);
@@ -20,13 +20,13 @@ export default function Search() {
     setResult(null);
 
     try {
-      const response = await fetch(`http://localhost:5000/search/${word}`);
-      if (!response.ok) {
-        throw new Error("Error fetching the word");
-      }
-      const data = await response.json();
+      const response = await getWordFromApi(word);
+      // if (!response.ok) {
+      //   throw new Error("Error fetching the word");
+      // }
+      // const data = await response.json();
 
-      setResult(data);
+      // setResult(data);
     } catch (error: any) {
       setError("Não foi possível buscar a palavra. Tente novamente.");
     } finally {
@@ -42,14 +42,14 @@ export default function Search() {
 
   return (
     <section className="bg-gradient-to-t from-blue-500 via-blue-300 to-blue-200 rounded-lg py-12">
-      <div className="max-w-3xl mx-auto text-center">
+      <div className="max-w-3xl mx-auto text-center px-3">
         <div className="flex items-center bg-white rounded-lg shadow-lg px-4 py-2">
           <input
-            type="text"
+            type="search"
             value={word}
             onChange={(e) => setWord(e.target.value)}
             placeholder="Procure no Dictionario"
-            className="flex-1 outline-none text-gray-700 px-2"
+            className="w-full outline-none text-gray-700 px-2"
           />
           <button onClick={fetchWord} className="text-blue-500" disabled={loading}>
             <FaSearch size={24} />
